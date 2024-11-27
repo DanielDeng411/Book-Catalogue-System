@@ -13,7 +13,7 @@
             font-weight: bolder;
             text-align: end;
         }
-        div{
+        .tagline{
             text-align: end;
         }
     </style>
