@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="loginstylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/login.css">
     <title>Login Page</title>
     
 </head>
@@ -12,7 +12,7 @@ include('header.php');
 ?>
 <body>
     <main>
-        <form method="post" name="loginpage" action="dashboard.php">
+        <form method="post" name="loginpage">
             <div class="textfield">
                 <label>Email:</label>
                 <input type="text" name="email" class="forminput"/>
@@ -28,9 +28,21 @@ include('header.php');
            <div>
                 <button type="submit" name="loginbutton">Log In</button>
                 <button type="reset" name="loginreset">Reset</button>
+                <button type="submit" name="signupbutton">Sign Up</button>
            </div>
         </form>
     </main>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['signupbutton'])) {
+            header('Location: signup.php');
+            exit();
+        } elseif (isset($_POST['loginbutton'])) {
+            header('Location: dashboard.php');
+            exit();
+        }
+    }
+    ?>
 <?php
 include('footer.php');
 ?>
