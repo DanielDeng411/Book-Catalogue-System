@@ -15,5 +15,8 @@
         }
         .tagline{
             text-align: end;
+            font-style: italic;
+            font-weight: bolder;
+            margin-top: -10px;
         }
     </style>

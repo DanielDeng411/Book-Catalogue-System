@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="../styles/dashboard.css">
 </head>
 <?php
 include('header.php');
@@ -29,26 +30,29 @@ include('header.php');
                 </select>
             </div>  
             <button type="submit" class="form-control">Search</button>
+            <form method="post" action="addbook.php">
+                <button type="submit" class="form-control" id="addbutton">Add Book</button>
+            </form>
         </form>
+
+        
 
         <table>
             <tr>
                 <th colspan="5">Book List</th>
             </tr>
             <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Edit</th>
-                <th>Remove</th>
+                <th id="title">Title</th>
+                <th id="author">Author</th>
+                <th id="genre">Genre</th>
+                <th id="remove">Remove</th>
+                <th id="edit">Edit</th>
             </tr>
             <tr>
                 <!-- php to print all the Books-->
             </tr>
         </table>
-        <form method="post" action="addbook.php">
-            <button type="submit" class="form-control">Add Book</button>
-        </form>
+
     </main>
     
 <?php
