@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Your Books</title>
+    <link rel="stylesheet" href="../styles/addbook.css">
 </head>
 <?php
 include('header.php');
 ?>
 <body>
     <main>
-        <fieldset>
-
-            
             <form method="get" action="">
-            <legend class="addbookheader">Book Information</legend>
+            <h2>Book Information</h2>
                 <div class="textfield">
                     <label class="bookinfo">Title:</label>
                     <input type="text" name="title" class="booinput">
@@ -33,14 +31,13 @@ include('header.php');
                 </div>
                 <div class="textfield">
                     <label class="bookinfo">Description:</label>
-                    <textarea name="description" class="bookinput" rows="5"></textarea>
+                    <textarea name="description" class="bookinput" rows="4"></textarea>
                 </div>
-                <div>
+                <div id="addbutton">
                     <button type="submit" name="submitbookinfo" class="bookinfobutton">Add</button>
                     <button type="reset" name="resetbookinfo" class="bookinfobutton">Clear</button>
                 </div>
             </form>
-        </fieldset>
     </main>
     <?php
     include('footer.php');
