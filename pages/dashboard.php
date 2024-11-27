@@ -11,7 +11,7 @@ include('header.php');
 ?>
 <body>
     <main>
-        <form method="GET" class="form-control">
+        <form method="get" class="form-control">
             <div class="searchform">
                 <input type="text" name="search" class="searchfilter" placeholder="Search by Title">
             </div>
@@ -28,35 +28,39 @@ include('header.php');
                     <option value="">Writer</option>
                     <!-- php to print all the writer-->
                 </select>
-            </div>  
-            <button type="submit" class="form-control">Search</button>
-            <form method="post" action="addbook.php">
-                <button type="submit" class="form-control" id="addbutton">Add Book</button>
-            </form>
+            </div>
+            <div>
+                <button type="submit" class="form-control">Search</button>
+            </div>
         </form>
-
-        
-
-        <table>
-            <tr>
-                <th colspan="5">Book List</th>
-            </tr>
-            <tr>
-                <th id="title">Title</th>
-                <th id="author">Author</th>
-                <th id="genre">Genre</th>
-                <th id="remove">Remove</th>
-                <th id="edit">Edit</th>
-            </tr>
-            <tr>
-                <!-- php to print all the Books-->
-            </tr>
-        </table>
-
+        <div id="booklist">
+            <div>
+                <form id="addbook" method="post" action="addbook.php">
+                    <button type="submit" class="form-control" id="addbutton">Add Book</button>
+                </form>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th colspan="5">Book List</th>
+                    </tr>
+                    <tr>
+                        <th id="title">Title</th>
+                        <th id="author">Author</th>
+                        <th id="genre">Genre</th>
+                        <th id="remove">Remove</th>
+                        <th id="edit">Edit</th>
+                    </tr>
+                    <tr>
+                        <!-- php to print all the Books-->
+                    </tr>
+                </table>
+            </div>
+        </div>  
     </main>
-    
 <?php
 include('footer.php');
 ?>
 </body>
 </html>
+

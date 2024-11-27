@@ -17,7 +17,6 @@ form.form-control {
     background: #fff;
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
     width: 100%;
     max-width: 1000px;
@@ -50,6 +49,7 @@ button.form-control {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
+
 }
 
 button.form-control[type="submit"] {
@@ -61,13 +61,13 @@ button.form-control[type="submit"]:hover {
     background-color: #2e59d9;
 }
 
-button.form-control[type="reset"] {
-    background-color: #e74a3b;
-    color: #fff;
+#booklist{
+    display: flex;
+    flex-direction: column;
 }
 
-button.form-control[type="reset"]:hover {
-    background-color: #c0392b;
+#addbook{
+    margin-bottom: 20px;
 }
 
 table {
@@ -91,10 +91,14 @@ table {
 }
 
 #genre{
-    width: 200px;
+    width: 150px;
 }
 
 #remove{
+    width: 50px;
+}
+
+#edit{
     width: 100px;
 }
 
