@@ -1,5 +1,15 @@
 <?php
+session_start();
 include('../server/db.php');
+
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if user is not logged in
+    header('Location: login.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id']; // Get the current user's ID
+
 if (isset($_GET['submitbookinfo'])) {
     $title = $_GET['title'];
     $author = $_GET['author'];
@@ -7,18 +17,42 @@ if (isset($_GET['submitbookinfo'])) {
     $year = $_GET['year'];
     $description = $_GET['description'];
 
-    $sql = "INSERT INTO books (title, author, genre, year, description) VALUES (?, ?, ?, ?, ?)";
+    $conn->begin_transaction(); // Start transaction
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssis", $title, $author, $genre, $year, $description); // "sssis" indicates the types: string, string, string, integer, string
+    try {
+        // Insert into books table
+        $sql = "INSERT INTO books (title, author, genre, year, description) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssis", $title, $author, $genre, $year, $description); // "sssis" indicates the types: string, string, string, integer, string
 
-    if ($stmt->execute()) {
-        echo "<script>alert('New book successfully added!');</script>";
-    } else {
-        echo "Error: " . $stmt->error;
+        if (!$stmt->execute()) {
+            throw new Exception("Error adding book: " . $stmt->error);
+        }
+
+        // Get the last inserted book ID
+        $book_id = $conn->insert_id;
+
+        // Insert into user_books table
+        $sql_user_books = "INSERT INTO user_books (user_id, book_id) VALUES (?, ?)";
+        $stmt_user_books = $conn->prepare($sql_user_books);
+        $stmt_user_books->bind_param("ii", $user_id, $book_id); // "ii" indicates two integers
+
+        if (!$stmt_user_books->execute()) {
+            throw new Exception("Error adding to user_books: " . $stmt_user_books->error);
+        }
+
+        $conn->commit(); // Commit transaction
+        echo "<script>alert('New book successfully added and associated with the user!');</script>";
+
+    } catch (Exception $e) {
+        $conn->rollback(); // Rollback transaction on error
+        echo "<script>alert('Failed to add book: " . $e->getMessage() . "');</script>";
+    } finally {
+        $stmt->close();
+        $stmt_user_books->close();
     }
-    $stmt->close();
 }
+
 $conn->close();
 ?>
 

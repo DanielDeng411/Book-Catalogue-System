@@ -84,6 +84,11 @@ include('header.php');
                 ?>
                 <button type="submit">Register</button>
                 <button type="reset">Clear</button>
+                <a href="login.php" class="back-button" style="text-decoration: none;">
+                    <button type="button">
+                    Log in
+                    </button>
+                </a>
             </form>
         </div>
     </main>
