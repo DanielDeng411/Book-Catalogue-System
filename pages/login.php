@@ -35,7 +35,7 @@ include('header.php');
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST['signupbutton'])) {
-            header('Location: signup.php');
+            header('Location: register.php');
             exit();
         } elseif (isset($_POST['loginbutton'])) {
             header('Location: dashboard.php');

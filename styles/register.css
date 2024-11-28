@@ -11,11 +11,7 @@ body {
     flex-direction: column;
     background: linear-gradient(135deg, #6e8efb, #a777e3);
 }
-header {
-    padding: 20px;
-    text-align: left;
-    color: #fff;
-}
+
 .container {
     background-color: #ffffff;
     padding: 40px;
@@ -60,8 +56,13 @@ button {
     font-weight: bold;
    
 }
+
+button[type="reset"]{
+    background-color: #ff6b6b;
+}
 .error {
     color: #ff6b6b;
     font-size: 0.9em;
     margin-top: 5px;
+    font-weight: bold;
 }
