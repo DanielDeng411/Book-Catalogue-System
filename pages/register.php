@@ -1,11 +1,48 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+include('../server/db.php');
+function isEmailRegistered($email) {
+    global $conn;
+    
+    $sql = "SELECT id FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userName = $_POST['userName'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
-    header("Location: dashboard.php");
-    exit; 
-}  
-?> 
+
+    if (isEmailRegistered($email)) {
+        $error_message = "This email is already registered. Please use a different email.";
+    } else {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $userName, $hashedPassword, $email);
+
+        if ($stmt->execute()) {
+            echo "<script>alert('You are registered! Please log in now');</script>";
+            header("Location: login.php");
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+    $stmt->close();
+    }
+}
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +77,11 @@ include('header.php');
                     <input type="password" id="confirmPassword" name="confirmPassword" required>
                     <span id="passwordError" class="error"></span>
                 </div>
+                <?php
+                if (!empty($error_message)) {
+                    echo "<p style='color: red; font-weight:bold'>$error_message</p>";
+                }
+                ?>
                 <button type="submit">Register</button>
                 <button type="reset">Clear</button>
             </form>
