@@ -10,7 +10,7 @@
                            $db_pass, 
                            $db_name);
 
-    if(!$conn){
-        echo "Database not connected!";
-    }
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
