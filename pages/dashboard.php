@@ -116,7 +116,7 @@ include('header.php');
                             <td><?= htmlspecialchars($book['title']) ?></td>
                             <td><?= htmlspecialchars($book['author']) ?></td>
                             <td><?= htmlspecialchars($book['genre']) ?></td>
-                            <td><a href="editbook.php?bookid=<?= htmlspecialchars($book['id']) ?>">Edit</a></td>
+                            <td><a style="text-decoration: none;" href="editbook.php?bookid=<?= htmlspecialchars($book['id']) ?>">Edit</a></td>
                         </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
