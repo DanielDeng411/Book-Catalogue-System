@@ -18,18 +18,29 @@ $result = $stmt->get_result();
 $book = $result->fetch_assoc();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $genre = $_POST['genre'];
-    $description = $_POST['description'];
-
-    $update_sql = "UPDATE books SET title=?, author=?, genre=?, description=? WHERE id=?";
-    $update_stmt = $conn->prepare($update_sql);
-    $update_stmt->bind_param("ssssi", $title, $author, $genre, $description, $book_id);
-    $update_stmt->execute();
+    if(isset($_POST['delete'])) {
+        $delete_sql = "DELETE FROM books WHERE id = ?";
+        $delete_stmt = $conn->prepare($delete_sql);
+        $delete_stmt->bind_param("i", $book_id);
+        $delete_stmt->execute();
+        header("Location: dashboard.php");
+        exit();
+    }
     
-    header("Location: dashboard.php");
-    exit();
+    if(isset($_POST['save'])) {
+        $title = $_POST['title'];
+        $author = $_POST['author'];
+        $genre = $_POST['genre'];
+        $description = $_POST['description'];
+        $rating = $_POST['rating'];
+
+        $update_sql = "UPDATE books SET title=?, author=?, genre=?, description=?, rating=? WHERE id=?";
+        $update_stmt = $conn->prepare($update_sql);
+        $update_stmt->bind_param("ssssii", $title, $author, $genre, $description, $rating, $book_id);
+        $update_stmt->execute();
+        header("Location: dashboard.php");
+        exit();
+    }
 }
 ?>
 
@@ -63,13 +74,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="form-group">
+                    <label for="rating">Rating (1-5)</label>
+                    <input type="number" id="rating" name="rating" min="1" max="5" value="<?= htmlspecialchars($book['rating'] ?? '') ?>">
+                </div>
+                <div class="form-group">
                     <label for="description">Description</label>
                     <textarea id="description" name="description" rows="4"><?= htmlspecialchars($book['description']) ?></textarea>
                 </div>
 
                 <div class="button-group">
-                    <button type="submit">Save Changes</button>
+                    <button type="submit" name="save" class="save-btn">Save Changes</button>
+                    <button type="submit" name="delete" class="delete-btn" onclick="return confirm('Are you sure you want to delete this book?')">Delete Book</button>
                     <a href="dashboard.php" class="cancel-btn">Cancel</a>
+                </div>
                 </div>
             </form>
         </div>
