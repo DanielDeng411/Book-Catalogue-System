@@ -1,14 +1,18 @@
 <?php
 session_start();
-include('db.php');
+require_once('../server/db.php');
+
+if (!isset($_SESSION['user_id']) || !isset($_GET['bookid'])) {
+    header('Location: login.php');
+    exit();
+}
 
 $book_id = $_GET['bookid'];
 $user_id = $_SESSION['user_id'];
 
-// Fetch book details
-$sql = "SELECT * FROM books WHERE id = ? AND id IN (SELECT book_id FROM user_books WHERE user_id = ?)";
+$sql = "SELECT * FROM books WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ii", $book_id, $user_id);
+$stmt->bind_param("i", $book_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $book = $result->fetch_assoc();
@@ -17,15 +21,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $author = $_POST['author'];
     $genre = $_POST['genre'];
-    $rate = $_POST['rate'];
     $description = $_POST['description'];
 
-    $update_sql = "UPDATE books SET title=?, author=?, genre=?, rate=?, description=? WHERE id=?";
+    $update_sql = "UPDATE books SET title=?, author=?, genre=?, description=? WHERE id=?";
     $update_stmt = $conn->prepare($update_sql);
-    $update_stmt->bind_param("sssisi", $title, $author, $genre, $rate, $description, $book_id);
+    $update_stmt->bind_param("ssssi", $title, $author, $genre, $description, $book_id);
     $update_stmt->execute();
     
-   // header("Location: dashboard.php");
+    header("Location: dashboard.php");
     exit();
 }
 ?>
@@ -36,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Book</title>
-    <link rel="stylesheet" href="../styles/edit.css">
+    <link rel="stylesheet" href="../styles/editbook.css">
 </head>
 <body>
     <?php include('header.php'); ?>
@@ -57,15 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="form-group">
                     <label for="genre">Genre</label>
                     <input type="text" id="genre" name="genre" value="<?= htmlspecialchars($book['genre']) ?>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="rate">Rating</label>
-                    <select id="rate" name="rate">
-                        <?php for($i = 1; $i <= 5; $i++): ?>
-                            <option value="<?= $i ?>" <?= $book['rate'] == $i ? 'selected' : '' ?>><?= $i ?> Stars</option>
-                        <?php endfor; ?>
-                    </select>
                 </div>
 
                 <div class="form-group">
