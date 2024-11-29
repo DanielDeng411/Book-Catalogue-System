@@ -75,3 +75,71 @@ button[type="reset"] {
     color: #fff;
 }
 
+@media (max-width: 720px) {
+    body {
+        font-size: 16px;
+    }
+    main {
+        padding: 10px;
+    }
+    .textfield {
+        display: block;
+        margin-bottom: 15px;
+    }
+    .bookinfo {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .bookinput {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    #addbutton {
+        text-align: center;
+    }
+    .bookinfobutton {
+        width: 45%;
+        padding: 10px;
+        margin: 10px 5px;
+    }
+    .back-button button {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    main {
+        padding: 5px;
+    }
+    .textfield {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .bookinfo {
+        font-size: 14px;
+        display: block;
+        margin-bottom: 3px;
+    }
+    .bookinput {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    #addbutton {
+        text-align: center;
+    }
+    .bookinfobutton {
+        width: 100%;
+        padding: 8px;
+        margin: 8px 0;
+    }
+    .back-button button {
+        width: 100%;
+        padding: 8px;
+    }
+}

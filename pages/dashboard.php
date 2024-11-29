@@ -71,6 +71,12 @@ include('header.php');
 ?>
 <body>
     <main>
+        <div class="logout-container" style="margin-bottom: 10px;">
+            <form method="post" action="logout.php">
+                <button type="submit" class="form-control">Logout</button>
+            </form>
+        </div>
+        
         <form method="get" class="form-control">
             <div class="searchform">
                 <input type="text" name="search" class="searchfilter" placeholder="Search by Title" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
