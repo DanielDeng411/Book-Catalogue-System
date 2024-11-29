@@ -81,8 +81,18 @@ button {
     text-align: center;
 }
 
-button:hover, .cancel-btn:hover {
-    transform: translateY(-2px);
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.save-btn {
+    background-color: #6e8efb;
+    color: white;
+}
+
+input[type="number"] {
+    width: 100px;
 }
 
 @media (max-width: 768px) {
