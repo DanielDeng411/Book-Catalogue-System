@@ -21,7 +21,7 @@ include('header.php');
             </div>
             <div class="textfield">
                 <label>Password:</label>
-                <input type="password" name="password" class="forminput" required>
+                <input type="password" name="password" class="forminput" required style="padding: 10px;border: 1px solid #ccc;  border-radius: 5px; transition: border 0.3s;">
             </div>
             <div class="checkbox">
                 <input type="checkbox" name="terms" id="terms" required>
